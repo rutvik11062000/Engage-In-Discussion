@@ -5,7 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Login from "./pages/login";
-import LoginNRegister from "./pages/LoginNRegister";
+import Register from "./pages/register";
 import Welcome from "./pages/Welcome";
 
 
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<LoginNRegister methodName="Register"/>} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter >
   );
