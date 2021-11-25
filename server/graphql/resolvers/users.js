@@ -33,7 +33,7 @@ module.exports = {
       const user = await User.findOne({ username });
 
       if (!user) {
-        errors.general = 'User not found';
+        errors.general = 'User not found'; 
         throw new UserInputError('User not found', { errors });
       }
 

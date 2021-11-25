@@ -2,14 +2,14 @@ const { gql } = require('apollo-server');
 
 module.exports = gql`
   type Post {
-    id: ID!
-    body: String!
-    createdAt: String!
-    username: String!
-    comments: [Comment]!
-    likes: [Like]!
-    likeCount: Int!
-    commentCount: Int!
+    author_id: String
+    title: String
+    body: String
+    createdAt: String
+    comment_count: Int
+    like_count: Int
+    view_count: Int
+    tags: [String]
   }
   type Comment {
     id: ID!
@@ -42,7 +42,7 @@ module.exports = gql`
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
-    createPost(body: String!): Post!
+    createPost(title: String!, body: String!, tags: [String]!): Post!
     deletePost(postId: ID!): String!
     createComment(postId: String!, body: String!): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!

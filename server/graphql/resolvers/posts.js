@@ -1,6 +1,7 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
 
 const Post = require('../../models/Post');
+const Tag = require('../../models/Tag');
 const checkAuth = require('../../utils/check-auth');
 
 module.exports = {
@@ -27,22 +28,31 @@ module.exports = {
     }
   },
   Mutation: {
-    async createPost(_, { body }, context) {
+    async createPost(_, { title, body, tags }, context) {
       const user = checkAuth(context);
 
-      if (body.trim() === '') {
-        throw new Error('Post body must not be empty');
+      if (title.trim() === '') {
+        throw new Error('Post title must not be empty');
       }
 
+      if (body.trim() === '') {
+        throw new Error('Post title must not be empty');
+      }
+
+      tags = [...new Set(tags)];
+
       const newPost = new Post({
+        author_id: user.id,
+        title,
         body,
-        user: user.id,
-        username: user.username,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        tags,
+        like_count: 0,
+        view_count: 0,
+        comment_count: 0,
       });
 
       const post = await newPost.save();
-      
       return post;
     },
     async deletePost(_, { postId }, context) {
